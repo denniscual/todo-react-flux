@@ -9,21 +9,16 @@ export default class Button extends React.Component{
         };
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log("the component will received props");
-        if (this.props != nextProps) {
-            this.setState({
-                subText: "Show the subtitle text"
-            });
-        }
-    }
 
+    onChangeButtonText(){
+        this.props.buttonHandler(this.state.subText);
+    }
 
 
 
     render(){
         return(
-            <button onClick={this.props.buttonHandler}>{this.state.subText}</button>
+            <button onClick={this.onChangeButtonText.bind(this)}>{this.state.subText}</button>
         );
     }
 }
