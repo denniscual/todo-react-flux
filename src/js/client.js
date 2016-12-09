@@ -20,7 +20,7 @@ class App extends React.Component{
     onStateSubText(newText) {
         this.setState({
             stateSubTextComp: !this.state.stateSubTextComp,
-            subText: "new text"
+            subText: newText
         });
 
     }
