@@ -12,7 +12,7 @@ class App extends React.Component{
         // this.displayText = "Show the subtitle of heading text";
         this.state = {
             stateSubTextComp: true,
-            subText: this.hideText
+            subText: "Hide the subtitle text"
         };
     }
 
