@@ -1,11 +1,21 @@
+//@flow
 import React from 'react';
 import { render } from 'react-dom';
 
-import {Header} from './components/header'
-import Button from './components/button'
+import {Header} from './components/header';
+import Button from './components/button';
+
 
 
 class App extends React.Component{
+
+    // setting the data type of the properties of state
+    state: {
+      isToggleText: boolean,
+      isToggleSubtitle: boolean
+    };
+    // datatype of handleclick
+    handleClick: () => void;
 
 
     constructor(){
@@ -15,9 +25,9 @@ class App extends React.Component{
             isToggleSubtitle: true
         };
         this.handleClick = this.handleClick.bind(this);
+
+
     }
-
-
 
 
     handleClick() {
@@ -68,6 +78,53 @@ class App extends React.Component{
 }
 
 
-
-
 render(<App/>, document.getElementById("app"));
+
+// let arrayObject: Array<number> = [1,2,3,4,'five'];
+// arrayObject.forEach((item) => console.log(item));
+
+interface IBar{
+  bar(): string;
+}
+
+// creating an interface - to define a contract to the class which will implement this interface.
+interface IFoolable extends IBar{
+  foo(): string;
+  bar(): string;
+}
+
+class Bar {
+  foo() {
+    return 'call';
+  }
+  bar() {
+    return 'bar';
+  }
+}
+// implementing the foolable interface on this class
+(new Bar: IFoolable);
+
+
+
+class Program<T>{
+
+  isEqual: boolean;
+  name: T
+
+  constructor(name: T){
+    this.name = name;
+    this.isEqual = Calculator.isEqualTo(1, 1);
+    console.log(this.isEqual ? 'The two values are equal.' : 'The two values are not equal.');
+  }
+
+}
+
+class Calculator{
+
+  static isEqualTo<T>(val1: T, val2: T): boolean{
+    return val1 === val2;
+  }
+
+}
+
+let program: Program<string> = new Program("hello");

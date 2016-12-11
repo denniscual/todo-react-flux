@@ -18,7 +18,10 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-plugin-transform-flow-strip-types": "^6.18.0",
+    "flow-bin": "^0.36.0"
+  },
   "scripts": {
     "dev": "webpack-dev-server --content-base src --inline --hot",
     "test": "echo \"Error: no test specified\" && exit 1"
