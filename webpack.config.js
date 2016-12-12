@@ -6,6 +6,8 @@ module.exports = {
   context: path.join(__dirname, "src"),
   devtool: debug ? "inline-sourcemap" : null,
   entry: "./js/client.js",
+  // we are using browserHistory for our router...
+  historyApiFallback: true,
   module: {
     loaders: [
       {
