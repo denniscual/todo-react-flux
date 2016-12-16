@@ -9,7 +9,8 @@ import type {TodosObjectType} from "../stores/TodoStore";
 
 type State = {
   todosArray: Array<TodosObjectType>,
-  initialText: string
+  initialText: string,
+  todoId: number
 }
 
 class Todos extends React.Component {
@@ -23,7 +24,8 @@ class Todos extends React.Component {
     super();
     this.state = {
       todosArray: todoStore.getAllTodo(), // spit all the object that inside this array.
-      initialText: ""
+      initialText: "",
+      todoId: 0
     };
     this.getTodos = this.getTodos.bind(this);
 
@@ -45,18 +47,33 @@ class Todos extends React.Component {
     });
   }
 
-  changeInitialText(text: string){
+  changeInitialText(text: string, id: number){
     this.setState({
-      initialText: text
+      initialText: text,
+      todoId: id
     });
   }
 
+  onChangeInitialTextHandler(event: any){
+    const textVal = event.target.value;
+    this.setState({
+      initialText: textVal
+    });
+  }
 
   // create todo
-  createTodo(){
-    // call the create todo function on TodoAction.
-    const field: any = document.getElementById("todoText");
-    todoAction.createTodo(field.value);
+  createTodo(event: any){
+
+    if(event.keyCode === 13){
+        event.preventDefault(); // Ensure it is only this code that rusn
+        event.target.value != "" ? todoAction.createTodo(event.target.value) : alert("The field is empty!");
+        event.target.value = "";
+    }
+
+  }
+
+  updateTodo(){
+    todoAction.updateTodo(this.state.todoId, this.state.initialText);
   }
 
   render () {
@@ -76,14 +93,17 @@ class Todos extends React.Component {
     return(
       <div class="container">
         <h3>Todos</h3>
-        <ul style={ulStyle}>{TodoComponents}</ul>
+        <ul class="todos">
+            <li class="todos__item">
+              <div className="formGroup">
+                <input class="formGroup__field" onKeyDown={(event) => this.createTodo(event)} placeholder="What will you do today?" id="todoText" type="text" />
+              </div>
+            </li>
+            {TodoComponents}
+        </ul>
         <div class="form-group">
-          <input id="todoText" type="text" />
-          <button onClick={this.createTodo.bind(this)}>Create todo</button>
-        </div>
-        <div class="form-group">
-          <input id="textUpdate"  type="text" value={this.state.initialText} />
-          <button onClick={this.createTodo.bind(this)}>Update todo</button>
+          <input id="textUpdate" onChange={(event) => this.onChangeInitialTextHandler(event)}  type="text" value={this.state.initialText} />
+          <button onClick={this.updateTodo.bind(this)}>Update todo</button>
         </div>
       </div>
     );

@@ -8,9 +8,17 @@ export type TodosObjectType = {
   complete: boolean
 };
 
+type TodoObjectType = {
+  key: string,
+  id: number,
+  title?: string
+};
+
+
 class TodoStore extends EventEmitter{
 
   todos: Array<TodosObjectType>;
+  params: TodoObjectType;
 
 
   constructor(){
@@ -39,18 +47,38 @@ class TodoStore extends EventEmitter{
     const todoID: number = Date.now();
     this.todos.push({
       id: todoID,
-      title: title,
+      title: title.trim(),
       complete: false
     });
     // we dispatch/invoke the event.
     this.emit("change");
   }
 
-  // delete a todo item
-  deleteTodo(todos: Array<TodosObjectType>, params: Object ){
+  // update todo
+  updateTodo(todos: Array<TodosObjectType>, {key,id,title}: TodoObjectType ){
     todos.some((item, index) => {
-    		if(todos[index][params.key] === params.value){
-    			// found it!
+        // search if the pass id is equal on the elemnet on the array.
+    		if(todos[index][key] === id){
+    			// found it! update the value title property on the object element
+          // check if the title is exist in declartion
+          if(title != null){
+            todos[index].title = title.trim();
+          }
+    			return true; // stops the loop
+    		}
+    		return false;
+    });
+    // invoke the event
+    this.emit("change");
+  }
+
+
+  // delete a todo item
+  deleteTodo(todos: Array<TodosObjectType>, {key,id}: TodoObjectType ){
+    todos.some((item, index) => {
+        // search if the pass id is equal on the elemnet on the array.
+    		if(todos[index][key] === id){
+    			// found it! delete the element
     			todos.splice(index, 1);
     			return true; // stops the loop
     		}
@@ -68,8 +96,11 @@ class TodoStore extends EventEmitter{
       case "CREATE_TODO":
         this.createTodo(action.text);
         break;
+      case "UPDATE_TODO":
+        this.updateTodo(this.todos, {key: "id", id: action.id, title: action.title});
+        break;
       case "DELETE_TODO":
-        this.deleteTodo(this.todos, {key: "id", value: action.id });
+        this.deleteTodo(this.todos, {key: "id", id: action.id});
         console.log(this.todos.length)
       default:
     }

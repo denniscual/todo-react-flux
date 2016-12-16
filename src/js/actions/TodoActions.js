@@ -10,6 +10,14 @@ export function createTodo(title: string){
   )
 }
 
+export function updateTodo(id: number, title: string){
+  dispatcher.dispatch({
+    type: "UPDATE_TODO",
+    id: id,
+    title: title
+  });
+}
+
 export function deleteTodo(id: number){
   dispatcher.dispatch(
     {
