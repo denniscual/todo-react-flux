@@ -3,11 +3,15 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router';
-import Header from '../snippets/Header';
-import Footer from '../snippets/Footer'
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer'
+
 
 type Props = {
-  children: Element<any>
+  children: Element<any>,
+  location: Object,
+  blog: any,
+  sidebar: Element<any>
 }
 
 export default class Layout extends React.Component{
@@ -22,11 +26,15 @@ export default class Layout extends React.Component{
   }
 
   render(){
+
+
     return(
       <div>
-        <Header />
+        <Header location={this.props.location}/>
           <main classID="siteMain">
-            {this.props.children}
+            <div className="row">
+              {this.props.children}
+            </div>
           </main>
         <Footer />
       </div>

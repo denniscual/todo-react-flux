@@ -3,10 +3,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Header from '../snippets/Header';
-import Footer from '../snippets/Footer'
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer'
 
 export default class Home extends React.Component{
+
 
   render(){
     return(
