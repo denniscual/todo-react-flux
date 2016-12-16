@@ -8,7 +8,8 @@ import type {TodosObjectType} from "../stores/TodoStore";
 
 
 type State = {
-  todosArray: Array<TodosObjectType>
+  todosArray: Array<TodosObjectType>,
+  initialText: string
 }
 
 class Todos extends React.Component {
@@ -21,7 +22,8 @@ class Todos extends React.Component {
   constructor(){
     super();
     this.state = {
-      todosArray: todoStore.getAllTodo() // spit all the object that inside this array.
+      todosArray: todoStore.getAllTodo(), // spit all the object that inside this array.
+      initialText: ""
     };
     this.getTodos = this.getTodos.bind(this);
 
@@ -40,6 +42,12 @@ class Todos extends React.Component {
   getTodos(){
     this.setState({
       todosArray: todoStore.getAllTodo()
+    });
+  }
+
+  changeInitialText(text: string){
+    this.setState({
+      initialText: text
     });
   }
 
@@ -62,7 +70,7 @@ class Todos extends React.Component {
 
     const {todosArray} = this.state;
     const TodoComponents = todosArray.map((todo) => {
-       return <Todo key={todo.id} {...todo} />
+       return <Todo changeText={this.changeInitialText.bind(this)} key={todo.id} {...todo} />
     });
 
     return(
@@ -74,7 +82,7 @@ class Todos extends React.Component {
           <button onClick={this.createTodo.bind(this)}>Create todo</button>
         </div>
         <div class="form-group">
-          <input id="textUpdate" type="text" />
+          <input id="textUpdate"  type="text" value={this.state.initialText} />
           <button onClick={this.createTodo.bind(this)}>Update todo</button>
         </div>
       </div>
