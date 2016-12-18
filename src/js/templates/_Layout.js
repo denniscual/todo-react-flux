@@ -3,7 +3,6 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Link } from 'react-router';
-import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer'
 
 
@@ -30,7 +29,6 @@ export default class Layout extends React.Component{
 
     return(
       <div>
-        <Header location={this.props.location}/>
           <main classID="siteMain">
             <div className="row">
               {this.props.children}

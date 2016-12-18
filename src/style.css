@@ -56,52 +56,6 @@ body{
   font-weight: 200;
 }
 
-.formGroup{
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: relative;
-}
-
-.formGroup__field{
-  outline: 0;
-  border: none;
-  flex: 1;
-  margin-left: 25px;
-}
-
-.formGroup__checkbox{
-  cursor: pointer;
-}
-
-.formGroup__button{
-  background: none;
-  outline: 0;
-  border: none;
-  color: rgb(251, 95, 128);
-}
-
-.formGroup__button i{
-  opacity: 0;
-  transition: opacity 0.5s ease-in;
-}
-
-.formGroup a:hover + .formGroup__button i, .formGroup__button:hover i{
-  opacity: 1;
-}
-
-.formGroup a{
-  flex: 1;
-  margin-left: 15px;
-  font-weight: 200;
-  color: #3e3e3e;
-}
-
-
-
-/*for animating and transitioning*/
-
 .todos__item--enter {
   opacity: 0.01;
   transition: opacity 500ms ease-in;
@@ -119,4 +73,133 @@ body{
 
 .todos__item--leave.todos__item--leaveActive {
   opacity: 0.01;
+}
+
+
+.formGroup{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.formGroup__field{
+  outline: 0;
+  border: none;
+  flex: 1;
+  margin-left: 25px;
+}
+
+.formGroup__checkbox{
+  cursor: pointer;
+  display: none;
+}
+
+.formGroup__button{
+  background: none;
+  outline: 0;
+  border: none;
+  color: rgb(251, 95, 128);
+}
+
+.formGroup__button i{
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.formGroup .formGroup__label:hover + .formGroup__button i, .formGroup__button:hover i{
+  opacity: 1;
+}
+
+.formGroup__label {
+  position: relative;
+  flex: 1;
+  margin-left: 40px;
+  margin-bottom: 0;
+  font-weight: 200;
+  color: #3e3e3e;
+}
+
+.formGroup__label a{
+  color: #3e3e3e;
+}
+
+.formGroup__label:before, .formGroup__label:after{
+  position: absolute;
+  top: 0px;
+  left: -40px;
+  font-family: FontAwesome;
+  font-size: 30px;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+.formGroup__label:before{
+  content: '\f1db';
+  color: #e3e3e3;
+  top: -7px;
+}
+
+.formGroup__label:after {
+  content: '\f111';
+  top: 3px;
+  left: -34px;
+  overflow: hidden;
+  color: #18bc9c;
+  font-size: 16px;
+  -webkit-animation:bounceout .4s;
+  -webkit-animation-iteration-count:1;
+  -webkit-animation-fill-mode:forwards;
+  -moz-animation:bounceout .4s;
+  -moz-animation-iteration-count:1;
+  -moz-animation-fill-mode:forwards;
+  animation:bounceout .4s;
+  animation-iteration-count:1;
+  animation-fill-mode:forwards;
+}
+
+/*triggering the animation when checked*/
+.formGroup__checkbox:checked + .formGroup__label:after {
+  -webkit-animation-iteration-count:1
+   -moz-animation:bounce .4s;
+   -moz-animation-iteration-count:1;
+   animation:bounce .4s;
+   animation-iteration-count:1
+}
+
+.formGroup__checkbox:checked + .formGroup__label{
+  text-decoration: line-through;
+  color: #e3e3e3;
+}
+
+/* animation */
+/* @Keyframes for Chrome and Safari */
+@-webkit-keyframes bounce {
+    0%  { -webkit-transform:scale(.8); opacity:.8}
+    25% { -webkit-transform:scale(.25); opacity:.25}
+    50% { -webkit-transform:scale(1.4); opacity:1.4}
+    75% { -webkit-transform:scale(.8); opacity:.8}
+    100%{ -webkit-transform:scale(1); opacity:1}
+}
+@keyframes bounce {
+    0%  { transform:scale(.8); opacity:.8}
+    25% { transform:scale(.25); opacity:.25}
+    50% { transform:scale(1.4); opacity:1.4}
+    75% { transform:scale(.8); opacity:.8}
+    100%{ transform:scale(1); opacity:1}
+}
+@-webkit-keyframes bounceout {
+    0%  { -webkit-transform:scale(0)}
+    25% { -webkit-transform:scale(.8)}
+    50% { -webkit-transform:scale(1.4)}
+    75% { -webkit-transform:scale(.25)}
+    100%{ -webkit-transform:scale(0)}
+}
+@keyframes bounceout {
+    0%  { transform:scale(0)}
+    25% { transform:scale(.8)}
+    50% { transform:scale(1.4)}
+    75% { transform:scale(.25)}
+    100%{ transform:scale(0)}
 }

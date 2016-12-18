@@ -94,25 +94,25 @@ class Todos extends React.Component {
     return(
       <div class="container">
         <h3>Todos</h3>
-        <ul class="todos">
-            <li class="todos__item">
-              <div className="formGroup">
-                <input class="formGroup__field" onKeyDown={(event) => this.createTodo(event)} placeholder="What will you do today?" id="todoText" type="text" />
-              </div>
-            </li>
-            {/*wrap this ReactCSSTransitionGroup on the todo component to initialize transition*/}
-            <ReactCSSTransitionGroup
-               transitionName={ {
-                 enter: 'todos__item--enter',
-                 enterActive: 'todos__item--enterActive',
-                 leave: 'todos__item--leave',
-                 leaveActive: 'todos__item--leaveActive'
-               } }
-               transitionEnterTimeout={500}
-               transitionLeaveTimeout={300}>
+        {/*wrap this ReactCSSTransitionGroup on the todo component to initialize transition*/}
+        <ReactCSSTransitionGroup
+           component="ul"
+           className="todos"
+           transitionName={ {
+             enter: 'todos__item--enter',
+             enterActive: 'todos__item--enterActive',
+             leave: 'todos__item--leave',
+             leaveActive: 'todos__item--leaveActive'
+           } }
+           transitionEnterTimeout={500}
+           transitionLeaveTimeout={300} >
+                <li class="todos__item">
+                  <div className="formGroup">
+                    <input class="formGroup__field" onKeyDown={(event) => this.createTodo(event)} placeholder="What will you do today?" id="todoText" type="text" />
+                  </div>
+                </li>
                {TodoComponents}
-           </ReactCSSTransitionGroup>
-        </ul>
+        </ReactCSSTransitionGroup>
         <div class="form-group">
           <input id="textUpdate" onChange={(event) => this.onChangeInitialTextHandler(event)}  type="text" value={this.state.initialText} />
           <button onClick={this.updateTodo.bind(this)}>Update todo</button>
