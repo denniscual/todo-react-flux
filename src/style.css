@@ -97,3 +97,26 @@ body{
   font-weight: 200;
   color: #3e3e3e;
 }
+
+
+
+/*for animating and transitioning*/
+
+.todos__item--enter {
+  opacity: 0.01;
+  transition: opacity 500ms ease-in;
+
+}
+
+.todos__item--enter.todos__item--enterActive {
+  opacity: 1;
+}
+
+.todos__item--leave {
+  opacity: 1;
+  transition: opacity 300ms ease-in;
+}
+
+.todos__item--leave.todos__item--leaveActive {
+  opacity: 0.01;
+}

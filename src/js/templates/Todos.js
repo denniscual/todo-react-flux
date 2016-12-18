@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Todo from "../components/Todo";
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import * as todoAction from "../actions/TodoActions";
 import {todoStore} from "../stores/TodoStore";
 import type {TodosObjectType} from "../stores/TodoStore";
@@ -99,7 +100,18 @@ class Todos extends React.Component {
                 <input class="formGroup__field" onKeyDown={(event) => this.createTodo(event)} placeholder="What will you do today?" id="todoText" type="text" />
               </div>
             </li>
-            {TodoComponents}
+            {/*wrap this ReactCSSTransitionGroup on the todo component to initialize transition*/}
+            <ReactCSSTransitionGroup
+               transitionName={ {
+                 enter: 'todos__item--enter',
+                 enterActive: 'todos__item--enterActive',
+                 leave: 'todos__item--leave',
+                 leaveActive: 'todos__item--leaveActive'
+               } }
+               transitionEnterTimeout={500}
+               transitionLeaveTimeout={300}>
+               {TodoComponents}
+           </ReactCSSTransitionGroup>
         </ul>
         <div class="form-group">
           <input id="textUpdate" onChange={(event) => this.onChangeInitialTextHandler(event)}  type="text" value={this.state.initialText} />
