@@ -96,20 +96,9 @@ body{
   display: none;
 }
 
-.formGroup__button{
-  background: none;
-  outline: 0;
-  border: none;
-  color: rgb(251, 95, 128);
-}
-
-.formGroup__button i{
-  opacity: 0;
-  transition: opacity 0.5s ease-in;
-}
-
-.formGroup .formGroup__label:hover + .formGroup__button i, .formGroup__button:hover i{
-  opacity: 1;
+.formGroup__checkbox.active + .formGroup__label{
+  text-decoration: line-through;
+  color: #e3e3e3;
 }
 
 .formGroup__label {
@@ -119,6 +108,8 @@ body{
   margin-bottom: 0;
   font-weight: 200;
   color: #3e3e3e;
+  text-decoration: none;
+  transition: color 400ms ease-in;
 }
 
 .formGroup__label a{
@@ -168,10 +159,24 @@ body{
    animation-iteration-count:1
 }
 
-.formGroup__checkbox:checked + .formGroup__label{
-  text-decoration: line-through;
-  color: #e3e3e3;
+.formGroup__button{
+  background: none;
+  outline: 0;
+  border: none;
+  color: rgb(251, 95, 128);
 }
+
+.formGroup__button i{
+  opacity: 0;
+  transition: opacity 400ms ease-in;
+}
+
+.formGroup .formGroup__label:hover + .formGroup__button i, .formGroup__button:hover i{
+  opacity: 1;
+}
+
+
+
 
 /* animation */
 /* @Keyframes for Chrome and Safari */

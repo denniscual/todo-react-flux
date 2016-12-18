@@ -39,6 +39,10 @@ class TodoStore extends EventEmitter{
 
   // get the todo item
   getAllTodo(): Array<TodosObjectType>{
+    // override the current todos array
+    this.todos = this.todos.filter(function (todo) {
+			return !todo.complete;
+		});
     return this.todos;
   }
 
@@ -88,6 +92,20 @@ class TodoStore extends EventEmitter{
     this.emit("change");
   }
 
+  // completed todo
+  completeTodo(todos: Array<TodosObjectType>, params: Object){
+    todos.some((item, index) => {
+        // search if the pass id is equal on the elemnet on the array.
+        if(todos[index][params.key] === params.id){
+          // found it! update the complete status
+          todos[index].complete = params.complete;
+          return true; // stops the loop
+        }
+        return false;
+    });
+    // this.emit("change");
+  }
+
   // a storage of the events - this will be the one decides what events that being omitted/invokde/
   // the decision will be based on the action that will pass by the dispatcher.
   handleActions(action: any){
@@ -101,7 +119,9 @@ class TodoStore extends EventEmitter{
         break;
       case "DELETE_TODO":
         this.deleteTodo(this.todos, {key: "id", id: action.id});
-        console.log(this.todos.length)
+        break;
+      case "COMPLETE_TODO":
+        this.completeTodo(this.todos, {key: "id", id: action.id, complete: action.complete})
       default:
     }
   }

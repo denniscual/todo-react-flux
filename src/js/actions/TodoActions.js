@@ -26,3 +26,13 @@ export function deleteTodo(id: number){
     }
   )
 }
+
+export function completeTodo(id: number, complete: boolean){
+  dispatcher.dispatch(
+    {
+      type: "COMPLETE_TODO",
+      id: id,
+      complete: complete
+    }
+  )
+}

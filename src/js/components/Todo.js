@@ -12,25 +12,29 @@ type Props = {
 };
 
 type State = {
-  checkboxState: boolean
+  todoStatus: boolean
 }
 
 class Todo extends React.Component {
 
   state: State;
+  todoId: number;
 
-  constructor(){
-    super();
+  constructor(props: Props){
+    super(props);
     this.state = {
-      checkboxState: false
+      todoStatus: this.props.complete
     }
+
+    this.todoId = this.props.id;
+    console.log(this.props.complete);
 
   }
 
   deleteTodo(){
-    const todoId: number = this.props.id;
-    todoAction.deleteTodo(todoId)
+    todoAction.deleteTodo(this.todoId)
   }
+
 
   changeTextValue({title,id}: Props){
     this.props.changeText(title, id);
@@ -43,19 +47,25 @@ class Todo extends React.Component {
 
   onCheckboxClick(){
     this.setState({
-      checkboxState: true
+      todoStatus: !this.state.todoStatus
     });
+    // call the the complete method.
+    console.log(this.state.todoStatus);
+    todoAction.completeTodo(this.todoId, this.state.todoStatus)
+
   }
 
   render () {
 
     const checkboxID = this.props.title.replace(/\s/g, '').toLowerCase();
+    // toggle class in checkboxID
+    const classes = classnames('formGroup__checkbox', {active: this.state.todoStatus});
     return(
         <li class="todos__item">
           <div className="formGroup">
-            <input id={checkboxID} type="checkbox" class="formGroup__checkbox"/>
+            <input onClick={this.onCheckboxClick.bind(this)} id={checkboxID} type="checkbox" className={classes} />
             <label className="formGroup__label" htmlFor={checkboxID}>
-              <a onClick={(event) => this.onChangeTextHandler(event)} href="#">{this.props.title}</a>
+              {this.props.title}
             </label>
             <button class="formGroup__button" onClick={this.deleteTodo.bind(this)}>
               <i class="fa fa-times" aria-hidden="true"></i>
@@ -67,6 +77,7 @@ class Todo extends React.Component {
   }
 
 }
+// <a onClick={(event) => this.onChangeTextHandler(event)} href="#">{this.props.title}</a>
 
 
 
