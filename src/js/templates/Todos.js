@@ -11,8 +11,7 @@ import type {TodosObjectType} from "../stores/TodoStore";
 type State = {
   todosArray: Array<TodosObjectType>,
   initialText: string,
-  todoId: number,
-  todoStatus: boolean
+  todoId: number
 }
 
 class Todos extends React.Component {
@@ -27,8 +26,7 @@ class Todos extends React.Component {
     this.state = {
       todosArray: todoStore.getAllTodo(), // spit all the object that inside this array.
       initialText: "",
-      todoId: 0,
-      todoStatus: false
+      todoId: 0
     };
     this.getTodos = this.getTodos.bind(this);
 
@@ -77,13 +75,6 @@ class Todos extends React.Component {
 
   updateTodo(){
     todoAction.updateTodo(this.state.todoId, this.state.initialText);
-  }
-
-  onStatusToggle(newStatus: boolean){
-    this.setState({
-      todoStatus: newStatus
-    });
-    todoAction.completeTodo(this.state.todoId, this.state.todoStatus)
   }
 
 
