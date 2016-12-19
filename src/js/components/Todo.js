@@ -27,7 +27,6 @@ class Todo extends React.Component {
     }
 
     this.todoId = this.props.id;
-    console.log(this.props.complete);
 
   }
 
@@ -45,13 +44,11 @@ class Todo extends React.Component {
     this.changeTextValue(this.props);
   }
 
-  onCheckboxClick(){
+  handleChange(){
     this.setState({
       todoStatus: !this.state.todoStatus
     });
     // call the the complete method.
-    console.log(this.state.todoStatus);
-    todoAction.completeTodo(this.todoId, this.state.todoStatus)
 
   }
 
@@ -63,7 +60,7 @@ class Todo extends React.Component {
     return(
         <li class="todos__item">
           <div className="formGroup">
-            <input onClick={this.onCheckboxClick.bind(this)} id={checkboxID} type="checkbox" className={classes} />
+            <input  onChange={() => this.handleChange()} id={checkboxID} type="checkbox" className={classes} />
             <label className="formGroup__label" htmlFor={checkboxID}>
               {this.props.title}
             </label>
