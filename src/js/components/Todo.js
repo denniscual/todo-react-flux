@@ -3,13 +3,14 @@
 import React, { PropTypes } from 'react'
 import * as todoAction from "../actions/TodoActions";
 import classnames from "classnames";
-import Checkbox from "./Checkbox";
 
 
 type Props = {
   title: string,
   id: number,
-  changeText: (string, number) => void
+  changeText: (string, number) => void,
+  complete: boolean,
+  statusChange: (boolean) => void
 };
 
 type State = {
@@ -45,10 +46,12 @@ class Todo extends React.Component {
     this.changeTextValue(this.props);
   }
 
-  onHandleChange(status: boolean){
+
+  onHandleChange(){
     this.setState({
-      todoStatus: status
-    });
+        todoStatus: !this.state.todoStatus
+      }, () => todoAction.completeTodo(this.todoId, this.state.todoStatus)
+    );       // after we update the state, fire this callback function.
   }
 
   render () {
@@ -59,8 +62,7 @@ class Todo extends React.Component {
     return(
         <li class="todos__item">
           <div className="formGroup">
-            <Checkbox onStatusChange = {this.onHandleChange.bind(this)} checked={this.state.todoStatus}/>
-            <input onChange={this.onHandleChange.bind(this)} checked={this.state.todoStatus} id={checkboxID} type="checkbox" className={classes} />
+            <input id={checkboxID} className={classes} type="checkbox" onClick={this.onHandleChange.bind(this)} checked={this.state.todoStatus}/>
             <label className="formGroup__label" htmlFor={checkboxID}>
               {this.props.title}
             </label>

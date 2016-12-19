@@ -40,9 +40,9 @@ class TodoStore extends EventEmitter{
   // get the todo item
   getAllTodo(): Array<TodosObjectType>{
     // override the current todos array
-    this.todos = this.todos.filter(function (todo) {
-			return !todo.complete;
-		});
+    // this.todos = this.todos.filter(function (todo) {
+		// 	return !todo.complete;
+		// });
     return this.todos;
   }
 
@@ -103,7 +103,7 @@ class TodoStore extends EventEmitter{
         }
         return false;
     });
-    // this.emit("change");
+    console.log(todos);
   }
 
   // a storage of the events - this will be the one decides what events that being omitted/invokde/
