@@ -59,7 +59,7 @@ class Todo extends React.Component {
     return(
         <li class="todos__item">
           <div className="formGroup">
-            <Checkbox onStatusChange = {this.onStatusChange.bind(this)} checked={this.status.todoStatus}/>
+            <Checkbox onStatusChange = {this.onHandleChange.bind(this)} checked={this.state.todoStatus}/>
             <input onChange={this.onHandleChange.bind(this)} checked={this.state.todoStatus} id={checkboxID} type="checkbox" className={classes} />
             <label className="formGroup__label" htmlFor={checkboxID}>
               {this.props.title}
