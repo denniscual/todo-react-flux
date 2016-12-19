@@ -1,5 +1,7 @@
 //@flow
 import dispatcher from "../dispatcher";
+import type {TodosObjectType} from "../stores/TodoStore";
+
 
 export function createTodo(title: string){
   dispatcher.dispatch(
@@ -33,6 +35,14 @@ export function completeTodo(id: number, complete: boolean){
       type: "COMPLETE_TODO",
       id: id,
       complete: complete
+    }
+  )
+}
+
+export function getAllUnCompleteTodo() {
+  dispatcher.dispatch(
+    {
+      type: "FILTER_UNCOMPLETE_TODO"
     }
   )
 }

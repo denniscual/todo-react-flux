@@ -33,17 +33,28 @@ class TodoStore extends EventEmitter{
            id: 1005,
            title: "Date with my Girlfriend",
            complete: false
+         },
+         {
+           id: 1010,
+           title: "Shopping at the mall",
+           complete: false
          }
     ];
   }
 
   // get the todo item
   getAllTodo(): Array<TodosObjectType>{
-    // override the current todos array
-    // this.todos = this.todos.filter(function (todo) {
-		// 	return !todo.complete;
-		// });
     return this.todos;
+  }
+
+  // get all the complete todo
+  getAllUnCompleteTodo() {
+    // initialize the instance property value
+    this.todos = this.todos.filter((todo) => {
+      return todo.complete != true;
+    });
+
+    this.emit("change");
   }
 
   // add a todo item
@@ -103,8 +114,9 @@ class TodoStore extends EventEmitter{
         }
         return false;
     });
-    console.log(todos);
+    this.emit("change");
   }
+
 
   // a storage of the events - this will be the one decides what events that being omitted/invokde/
   // the decision will be based on the action that will pass by the dispatcher.
@@ -121,7 +133,11 @@ class TodoStore extends EventEmitter{
         this.deleteTodo(this.todos, {key: "id", id: action.id});
         break;
       case "COMPLETE_TODO":
-        this.completeTodo(this.todos, {key: "id", id: action.id, complete: action.complete})
+        this.completeTodo(this.todos, {key: "id", id: action.id, complete: action.complete});
+        break;
+      case "FILTER_UNCOMPLETE_TODO":
+        this.getAllUnCompleteTodo();
+        break;
       default:
     }
   }

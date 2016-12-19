@@ -84,6 +84,17 @@ body{
   position: relative;
 }
 
+.formGroup--footer span, .formGroup--footer .formGroup__link{
+  font-size: 15px;
+  color: #9a9a9a;
+}
+
+.formGroup--footer .formGroup__link:hover{
+  text-decoration: none;
+  color: #18bc9c;
+  cursor: pointer;
+}
+
 .formGroup__field{
   outline: 0;
   border: none;

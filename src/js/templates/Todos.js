@@ -6,12 +6,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 import * as todoAction from "../actions/TodoActions";
 import {todoStore} from "../stores/TodoStore";
 import type {TodosObjectType} from "../stores/TodoStore";
+import TodosFooter from "../components/TodosFooter";
 
 
 type State = {
   todosArray: Array<TodosObjectType>,
   initialText: string,
-  todoId: number
+  todoId: number,
+  todoStatus: boolean
 }
 
 class Todos extends React.Component {
@@ -26,7 +28,8 @@ class Todos extends React.Component {
     this.state = {
       todosArray: todoStore.getAllTodo(), // spit all the object that inside this array.
       initialText: "",
-      todoId: 0
+      todoId: 0,
+      todoStatus: false
     };
     this.getTodos = this.getTodos.bind(this);
 
@@ -35,7 +38,6 @@ class Todos extends React.Component {
   componentWillMount() {
     // we create a change event and attach it to our todoStore object.
     todoStore.on("change", this.getTodos);
-
   }
 
   componentWillUnmount(){
@@ -55,6 +57,7 @@ class Todos extends React.Component {
     });
   }
 
+
   onChangeInitialTextHandler(event: any){
     const textVal = event.target.value;
     this.setState({
@@ -64,17 +67,22 @@ class Todos extends React.Component {
 
   // create todo
   createTodo(event: any){
-
     if(event.keyCode === 13){
         event.preventDefault(); // Ensure it is only this code that rusn
         event.target.value != "" ? todoAction.createTodo(event.target.value) : alert("The field is empty!");
         event.target.value = "";
     }
-
   }
 
   updateTodo(){
     todoAction.updateTodo(this.state.todoId, this.state.initialText);
+  }
+
+  onStatusChange(status: boolean, id: number){
+    this.setState({
+      todoStatus: status
+    }, () =>   todoAction.completeTodo(id, this.state.todoStatus)
+    );
   }
 
 
@@ -89,8 +97,16 @@ class Todos extends React.Component {
 
     const {todosArray} = this.state;
     const TodoComponents = todosArray.map((todo) => {
-       return <Todo changeText={this.changeInitialText.bind(this)} key={todo.id} {...todo} />
+       return <Todo statusChange={this.onStatusChange.bind(this)} changeText={this.changeInitialText.bind(this)} key={todo.id} id={todo.id} title={todo.title} complete={this.state.todoStatus} />
     });
+
+    // get the total of uncomplete todo.
+    const activeTodoCount = todosArray.reduce(function (accum, todo) {
+				return todo.complete ? accum : accum + 1;
+		}, 0);
+
+    const completedCount = todosArray.length - activeTodoCount;
+
 
     return(
       <div class="container">
@@ -113,6 +129,7 @@ class Todos extends React.Component {
                   </div>
                 </li>
                {TodoComponents}
+               <TodosFooter count={activeTodoCount} completedCount={completedCount}/>
         </ReactCSSTransitionGroup>
         <div class="form-group">
           <input id="textUpdate" onChange={(event) => this.onChangeInitialTextHandler(event)}  type="text" value={this.state.initialText} />

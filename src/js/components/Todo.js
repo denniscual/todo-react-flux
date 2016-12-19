@@ -25,7 +25,7 @@ class Todo extends React.Component {
   constructor(props: Props){
     super(props);
     this.state = {
-      todoStatus: this.props.complete
+      todoStatus: false
     }
 
     this.todoId = this.props.id;
@@ -50,7 +50,7 @@ class Todo extends React.Component {
   onHandleChange(){
     this.setState({
         todoStatus: !this.state.todoStatus
-      }, () => todoAction.completeTodo(this.todoId, this.state.todoStatus)
+      }, () => this.props.statusChange(this.state.todoStatus, this.props.id)
     );       // after we update the state, fire this callback function.
   }
 
@@ -62,7 +62,7 @@ class Todo extends React.Component {
     return(
         <li class="todos__item">
           <div className="formGroup">
-            <input id={checkboxID} className={classes} type="checkbox" onClick={this.onHandleChange.bind(this)} checked={this.state.todoStatus}/>
+            <input id={checkboxID} className={classes} type="checkbox" onChange={this.onHandleChange.bind(this)} checked={this.state.todoStatus}/>
             <label className="formGroup__label" htmlFor={checkboxID}>
               {this.props.title}
             </label>
