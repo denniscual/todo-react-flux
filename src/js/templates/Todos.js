@@ -15,8 +15,9 @@ type State = {
   todosArray: Array<TodosObjectType>,
   initialText: string,
   todoId: number,
-  todoStatus: boolean
-}
+  todoStatus: boolean,
+  editingTodo: number
+};
 
 class Todos extends React.Component {
 
@@ -31,7 +32,8 @@ class Todos extends React.Component {
       todosArray: todoStore.getAllTodo(), // spit all the object that inside this array.
       initialText: "",
       todoId: 0,
-      todoStatus: false
+      todoStatus: false,
+      editingTodo: 0
     };
     this.getTodos = this.getTodos.bind(this);
 
@@ -40,6 +42,7 @@ class Todos extends React.Component {
   componentWillMount() {
     // we create a change event and attach it to our todoStore object.
     todoStore.on("change", this.getTodos);
+
   }
 
   componentWillUnmount() {
