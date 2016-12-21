@@ -7,6 +7,7 @@ import * as todoAction from "../actions/TodoActions";
 import { todoStore } from "../stores/TodoStore";
 import type {TodosObjectType } from "../stores/TodoStore";
 import TodosFooter from "../components/TodosFooter";
+import TodosHeader from "../components/TodosHeader"
 
 
 
@@ -111,7 +112,6 @@ class Todos extends React.Component {
 
     return (
       <div class="container">
-        <h3>Todos</h3>
         {/*wrap this ReactCSSTransitionGroup on the todo component to initialize transition*/}
         <ReactCSSTransitionGroup
           component="ul"
@@ -124,6 +124,7 @@ class Todos extends React.Component {
           }}
           transitionEnterTimeout={500}
           transitionLeaveTimeout={300} >
+          <TodosHeader />
           <li class="todos__item">
             <div className="formGroup">
               <input class="formGroup__field" onKeyDown={(event) => this.createTodo(event)} placeholder="What will you do today?" id="todoText" type="text" />
@@ -137,6 +138,7 @@ class Todos extends React.Component {
           <button onClick={this.updateTodo.bind(this)}>Update todo</button>
         </div>
       </div>
+
 
     );
 
