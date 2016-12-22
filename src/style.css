@@ -46,6 +46,7 @@ body{
   padding: 0;
   list-style-type: none;
   box-shadow: 0px 3px 29px 0px rgba(214, 214, 214, 0.67);
+  /*0px 3px 29px 0px rgba(214, 214, 214, 0.67)*/
 }
 
 .todos__item{
@@ -54,9 +55,9 @@ body{
   border-bottom: 1px solid rgb(218, 218, 218);
   font-weight: 200;
   background-color: #fff;
-  transition: background-color 400ms ease-in;
+  /*transform: scale(1);*/
+  transition: transform 200ms ease-in;
 }
-
 
 .todos__item--header{
   padding: 1.8em;
@@ -79,6 +80,22 @@ body{
 
 .todos__item--leave.todos__item--leaveActive {
   opacity: 0.01;
+}
+
+/*todos item editing*/
+.todos__item.editing{
+  border: 0;
+  border-left: 5px solid #18bc9c;
+  transform: scale(1.05);
+  box-shadow: 0px 2px 20px 0px rgba(214, 214, 214, 0.67)
+}
+
+.todos__item.editing .formGroup__label, .todos__item.editing .formGroup__label ~ button{
+  display: none;
+}
+
+.todos__item.editing .formGroup__field--hidden{
+  display: block;
 }
 
 .date{
@@ -113,7 +130,6 @@ body{
   font-size: 4rem;
 
 }
-
 
 .flex--col{
   display: flex;
@@ -173,17 +189,10 @@ body{
   transition: color 400ms ease-in;
 }
 
-.formGroup__label.editing{
-  display: none;
-}
 
-.formGroup__label.editing + .formGroup__field--hidden{
-  display: block;
-}
-
-.formGroup__label.editing ~ button{
+/*.formGroup__label.editing ~ button{
   display: none;
-}
+}*/
 
 .formGroup__label a{
   color: #3e3e3e;
@@ -229,7 +238,7 @@ body{
    -moz-animation:bounce .4s;
    -moz-animation-iteration-count:1;
    animation:bounce .4s;
-   animation-iteration-count:1
+   animation-iteration-count:1;
 }
 
 .formGroup__button{

@@ -10,12 +10,15 @@ type Props = {
   id: number,
   changeText: (string, number) => void,
   complete: boolean,
-  statusChange: (boolean) => void
+  statusChange: (boolean) => void,
+  isEdit: boolean,
+  onEdit: (Object) => void
 };
 
 type State = {
   todoStatus: boolean,
-  isEdit: boolean
+  isEdit: boolean,
+  textValue: string
 }
 
 class Todo extends React.Component {
@@ -28,28 +31,46 @@ class Todo extends React.Component {
     super(props);
     this.state = {
       todoStatus: false,
-      isEdit: false
+      isEdit: this.props.isEdit,
+      textValue: this.props.title
     }
 
     this.todoId = this.props.id;
 
   }
 
+
   deleteTodo(){
     todoAction.deleteTodo(this.todoId)
   }
 
-
-  changeTextValue({title,id}: Props){
-    this.props.changeText(title, id);
+  updateTodo(event: any) {
+    // if we press enter
+    if (event.keyCode === 13) {
+        event.preventDefault(); // Ensure it is only this code that rusn
+        todoAction.updateTodo(this.todoId, this.state.textValue);
+        // hide the input text field.
+        this.setState({
+          isEdit: !this.state.isEdit
+        })
+    }
+    // if we press escape key.
+    else if(event.keyCode == 27){
+      this.setState({
+        isEdit: !this.state.isEdit
+      })
+    }
   }
 
+  // change the text value based on the input text
   onChangeTextHandler(event: any){
-    event.preventDefault();
-    this.changeTextValue(this.props);
+    const value = event.target.value;
+    this.setState({
+      textValue: value
+    });
   }
 
-
+  // change the status of the todo
   onHandleChange(){
     this.setState({
         todoStatus: !this.state.todoStatus
@@ -57,10 +78,13 @@ class Todo extends React.Component {
     );       // after we update the state, fire this callback function.
   }
 
+  // to hide the label
   onEditTodo(){
+    this.props.onEdit();
     this.setState({
       isEdit: !this.state.isEdit
-    })
+      }
+    );
   }
 
   // this function is opportunity to opearte and manipulate the DOM, we can get the prev props and state in here.
@@ -75,16 +99,21 @@ class Todo extends React.Component {
     const checkboxID = this.props.title.replace(/\s/g, '').toLowerCase();
     // toggle class in checkboxID
     const classes = classnames('formGroup__checkbox', {active: this.state.todoStatus});
-    // hide the label if the edit button is clicked.
-    const labelClass = classnames("formGroup__label", {editing: this.state.isEdit})
+    // hide the label if the edit button is clicked. the state became edited if this operand returns true.
+    const liClass = classnames("todos__item", {editing: this.props.isEdit && this.state.isEdit})
     return(
-        <li class="todos__item">
+        <li class={liClass}>
           <div className="formGroup">
             <input id={checkboxID} className={classes} type="checkbox" onChange={this.onHandleChange.bind(this)} checked={this.state.todoStatus}/>
-            <label className={labelClass} htmlFor={checkboxID}>
+            <label className="formGroup__label" htmlFor={checkboxID}>
               {this.props.title}
             </label>
-            <input ref={(input) => this.textInput = input } type="text" className="formGroup__field formGroup__field--hidden" value={this.props.title}/>
+            <input onKeyDown={this.updateTodo.bind(this)}
+                   onChange={(e) => this.onChangeTextHandler(e)}
+                   ref={(input) => this.textInput = input }
+                   type="text"
+                   className="formGroup__field formGroup__field--hidden"
+                   value={this.state.textValue}/>
             <button class="formGroup__button" onClick={this.onEditTodo.bind(this)}>
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
@@ -98,5 +127,5 @@ class Todo extends React.Component {
   }
 
 }
-// <a onClick={(event) => this.onChangeTextHandler(event)} href="#">{this.props.title}</a>
+
 export default Todo;

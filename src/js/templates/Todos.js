@@ -13,7 +13,6 @@ import TodosHeader from "../components/TodosHeader"
 
 type State = {
   todosArray: Array<TodosObjectType>,
-  initialText: string,
   todoId: number,
   todoStatus: boolean,
   editingTodo: number
@@ -30,7 +29,6 @@ class Todos extends React.Component {
     super();
     this.state = {
       todosArray: todoStore.getAllTodo(), // spit all the object that inside this array.
-      initialText: "",
       todoId: 0,
       todoStatus: false,
       editingTodo: 0
@@ -55,20 +53,6 @@ class Todos extends React.Component {
     });
   }
 
-  changeInitialText(text: string, id: number) {
-    this.setState({
-      initialText: text,
-      todoId: id
-    });
-  }
-
-
-  onChangeInitialTextHandler(event: any) {
-    const textVal = event.target.value;
-    this.setState({
-      initialText: textVal
-    });
-  }
 
   // create todo
   createTodo(event: any) {
@@ -79,9 +63,6 @@ class Todos extends React.Component {
     }
   }
 
-  updateTodo() {
-    todoAction.updateTodo(this.state.todoId, this.state.initialText);
-  }
 
   onStatusChange(status: boolean, id: number) {
     this.setState({
@@ -90,19 +71,26 @@ class Todos extends React.Component {
     );
   }
 
+  edit(todo: Object){
+    this.setState({
+      editingTodo: todo.id
+    });
+    console.log(todo.id);
+  }
 
   render() {
 
-    const ulStyle = {
-      listStyleType: "none",
-      margin: 0,
-      padding: 0,
-      marginBottom: 20
-    };
-
     const {todosArray} = this.state;
     const TodoComponents = todosArray.map((todo) => {
-      return <Todo statusChange={this.onStatusChange.bind(this)} changeText={this.changeInitialText.bind(this)} key={todo.id} id={todo.id} title={todo.title} complete={this.state.todoStatus} />
+      return <Todo
+                statusChange={this.onStatusChange.bind(this)}
+                key={todo.id}
+                id={todo.id}
+                title={todo.title}
+                complete={this.state.todoStatus}
+                onEdit={this.edit.bind(this, todo)}
+                isEdit ={this.state.editingTodo === todo.id}
+              />
     });
 
     // get the total of uncomplete todo.
@@ -136,12 +124,7 @@ class Todos extends React.Component {
           {TodoComponents}
           <TodosFooter count={activeTodoCount} completedCount={completedCount} />
         </ReactCSSTransitionGroup>
-        <div class="form-group">
-          <input id="textUpdate" onChange={(event) => this.onChangeInitialTextHandler(event)} type="text" value={this.state.initialText} />
-          <button onClick={this.updateTodo.bind(this)}>Update todo</button>
-        </div>
       </div>
-
 
     );
 
