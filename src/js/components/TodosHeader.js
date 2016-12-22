@@ -11,7 +11,7 @@ const TodosHeader = () => {
 
     return(
       <li style={inlineStyle} class="todos__item todos__item--header">
-        <a class="forkTag" href="">Fork me on github</a>
+        <a class="forkTag" href="https://github.com/denniscual/todo-react-flux">Fork me on github</a>
         <div className="date">
           <div className="date__col">
             <span className="date__text date__text--big">{TodoDate.date}</span>
