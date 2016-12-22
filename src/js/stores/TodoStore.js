@@ -1,6 +1,6 @@
 //@flow
 import EventEmitter from "events";
-import dispatcher from "../dispatcher";
+import dispatcher from "../util/dispatcher";
 
 export type TodosObjectType = {
   id: number,

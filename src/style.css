@@ -18,26 +18,13 @@ body{
   color: #c2c2c2;
 }
 
-
-#siteFooter{
-  background-color: rgba(194, 194, 194, 0.52);
-  height: 100px;
+.headlineText{
+  text-align: center;
+  margin: 4rem 0;
+  color: #dadada;
+  font-size: 5.6rem;
+  font-weight: 100;
 }
-
-.navbar{
-  border-radius: 0px;
-}
-
-.blog{
-  margin-left: 40px;
-}
-
-.sidenav{
-  padding-left: 40px;
-  margin-bottom: 30px;
-  border-right: 4px solid #8a8a8a;
-}
-
 
 .todos {
   max-width: 500px;
@@ -160,7 +147,7 @@ body{
   outline: 0;
   border: none;
   flex: 1;
-  margin-left: 25px;
+  margin-left: 40px;
 }
 
 .formGroup__field--hidden{
@@ -248,6 +235,10 @@ body{
   color: #18bc9c;
 }
 
+.formGroup__button--warning{
+  color: #f26a55;
+}
+
 .formGroup__button i{
   opacity: 0;
   transition: opacity 400ms ease-in;
@@ -257,6 +248,45 @@ body{
   opacity: 1;
 }
 
+.siteFooter{
+  margin-top: 5rem;
+}
+
+.siteFooter__meta{
+  text-align: center;
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: #dadada;
+}
+
+.siteFooter__meta a{
+  color: #dadada;
+  transition: color 400ms ease-in;
+}
+
+.siteFooter__meta a:hover{
+  color: #18bc9c;
+}
+
+
+.forkTag{
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  background: #18bc9c;
+  font-size: 1.3rem;
+  font-weight: 200;
+  color: white;
+  padding: 2px 7px;
+  transition: all 0.3s ease-in-out;
+  transform-origin: top right;
+}
+
+.forkTag:hover{
+  color: #fff;
+  text-decoration: none;
+  animation: wiggle 0.4s linear 1;
+}
 
 /* animation */
 /* @Keyframes for Chrome and Safari */
@@ -287,4 +317,32 @@ body{
     50% { transform:scale(1.4)}
     75% { transform:scale(.25)}
     100%{ transform:scale(0)}
+}
+
+
+/*wiggle animation*/
+
+@keyframes wiggle{
+  0% {
+    transform: rotate(0deg);
+}
+20% {
+    transform: rotate(8deg);
+}
+50% {
+    transform: rotate(-8deg);
+}
+80% {
+    transform: rotate(8deg);
+}
+100% {
+    transform: rotate(0deg);
+}
+}
+
+
+@media screen and (max-width: 420px)  {
+  .row{
+    margin: 0 10px;
+  }
 }

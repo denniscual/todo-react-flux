@@ -1,5 +1,5 @@
 //@flow
-import dispatcher from "../dispatcher";
+import dispatcher from "../util/dispatcher";
 import type {TodosObjectType} from "../stores/TodoStore";
 
 

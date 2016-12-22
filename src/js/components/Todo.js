@@ -39,7 +39,6 @@ class Todo extends React.Component {
 
   }
 
-
   deleteTodo(){
     todoAction.deleteTodo(this.todoId)
   }
@@ -117,7 +116,7 @@ class Todo extends React.Component {
             <button class="formGroup__button" onClick={this.onEditTodo.bind(this)}>
               <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
-            <button class="formGroup__button" onClick={this.deleteTodo.bind(this)}>
+            <button class="formGroup__button formGroup__button--warning" onClick={this.deleteTodo.bind(this)}>
               <i class="fa fa-times" aria-hidden="true"></i>
             </button>
           </div>

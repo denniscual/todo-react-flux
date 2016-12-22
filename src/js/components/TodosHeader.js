@@ -1,25 +1,27 @@
 //@flow
 
 import React, { PropTypes } from 'react'
+import TodoDate from "../util/TodoDate";
 
 const TodosHeader = () => {
 
-    const dateObject: Date = new Date;
-    const dayArray: Array<string> = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const day = dayArray[dateObject.getDay()];
+    const inlineStyle = {
+      position: "relative"
+    };
 
     return(
-      <li class="todos__item todos__item--header">
+      <li style={inlineStyle} class="todos__item todos__item--header">
+        <a class="forkTag" href="">Fork me on github</a>
         <div className="date">
           <div className="date__col">
-            <span className="date__text date__text--big">12</span>
+            <span className="date__text date__text--big">{TodoDate.date}</span>
           </div>
           <div className="date__col flex--col">
-            <span className="date__text">JANUARY</span>
-            <span className="date__text date__text--light">2016</span>
+            <span className="date__text">{TodoDate.month}</span>
+            <span className="date__text date__text--light">{TodoDate.year}</span>
           </div>
           <div className="date__col">
-            <span className="date__text">{day}</span>
+            <span className="date__text">{TodoDate.day}</span>
           </div>
         </div>
       </li>

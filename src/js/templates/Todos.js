@@ -103,6 +103,7 @@ class Todos extends React.Component {
 
     return (
       <div class="container">
+        <h1 class="headlineText">todos app</h1>
         {/*wrap this ReactCSSTransitionGroup on the todo component to initialize transition*/}
         <ReactCSSTransitionGroup
           component="ul"
@@ -118,12 +119,18 @@ class Todos extends React.Component {
           <TodosHeader />
           <li class="todos__item">
             <div className="formGroup">
-              <input class="formGroup__field" onKeyDown={(event) => this.createTodo(event)} placeholder="What will you do today?" id="todoText" type="text" />
+              <input  class="formGroup__field" onKeyDown={(event) => this.createTodo(event)} placeholder="What will you do today?" id="todoText" type="text" />
             </div>
           </li>
           {TodoComponents}
           <TodosFooter count={activeTodoCount} completedCount={completedCount} />
         </ReactCSSTransitionGroup>
+        <footer class="siteFooter">
+          <p class="siteFooter__meta">When you are in edit mode, press ESC to cancel</p>
+          <p class="siteFooter__meta">
+            <a target="_blank" href="https://github.com/denniscual">Created by Drish</a>
+          </p>
+        </footer>
       </div>
 
     );
