@@ -71,18 +71,10 @@ class TodoStore extends EventEmitter{
 
   // update todo
   updateTodo(todos: Array<TodosObjectType>, {key,id,title}: TodoObjectType ){
-    todos.some((item, index) => {
-        // search if the pass id is equal on the elemnet on the array.
-    		if(todos[index][key] === id){
-    			// found it! update the value title property on the object element
-          // check if the title is exist in declartion
-          if(title != null){
-            todos[index].title = title.trim();
-          }
-    			return true; // stops the loop
-    		}
-    		return false;
-    });
+    const itemIndex = this.getObjectById(todos, key, id);
+    if(title != null){
+      todos[itemIndex].title = title.trim();
+    }
     // invoke the event
     this.emit("change");
   }
@@ -90,31 +82,31 @@ class TodoStore extends EventEmitter{
 
   // delete a todo item
   deleteTodo(todos: Array<TodosObjectType>, {key,id}: TodoObjectType ){
-    todos.some((item, index) => {
-        // search if the pass id is equal on the elemnet on the array.
-    		if(todos[index][key] === id){
-    			// found it! delete the element
-    			todos.splice(index, 1);
-    			return true; // stops the loop
-    		}
-    		return false;
-    });
+    const itemIndex = this.getObjectById(todos, key, id);
+    todos.splice(itemIndex, 1);
     // invoke the event
     this.emit("change");
   }
 
   // completed todo
   completeTodo(todos: Array<TodosObjectType>, params: Object){
-    todos.some((item, index) => {
-        // search if the pass id is equal on the elemnet on the array.
-        if(todos[index][params.key] === params.id){
-          // found it! update the complete status
-          todos[index].complete = params.complete;
-          return true; // stops the loop
-        }
-        return false;
-    });
+    const itemIndex = this.getObjectById(todos, params.key, params.id);
+    todos[itemIndex].complete = params.complete;
     this.emit("change");
+  }
+
+  //it will return the index of selected object in array
+  getObjectById(todos: Array<TodosObjectType>, key: string, id: number): number{
+    let itemIndex: number = 0;
+    todos.some((item, index: number) => {
+      // search an element in array.
+      if(todos[index][key] === id){
+        itemIndex = index;
+        return true;
+      }
+      return false;
+    });
+    return itemIndex;
   }
 
 

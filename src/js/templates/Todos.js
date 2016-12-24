@@ -53,13 +53,12 @@ class Todos extends React.Component {
     });
   }
 
-
   // create todo
   createTodo(event: any) {
     if (event.keyCode === 13) {
-      event.preventDefault(); // Ensure it is only this code that rusn
-      event.target.value != "" ? todoAction.createTodo(event.target.value) : alert("The field is empty!");
-      event.target.value = "";
+        event.preventDefault(); // Ensure it is only this code that rusn
+        event.target.value != "" ? todoAction.createTodo(event.target.value) : alert("The field is empty!");
+        event.target.value = "";
     }
   }
 
