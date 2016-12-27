@@ -47,11 +47,18 @@ class Todo extends React.Component {
     // if we press enter
     if (event.keyCode === 13) {
         event.preventDefault(); // Ensure it is only this code that rusn
-        todoAction.updateTodo(this.todoId, this.state.textValue);
-        // hide the input text field.
-        this.setState({
-          isEdit: !this.state.isEdit
-        })
+        if(event.target.value != "")
+        {
+          todoAction.updateTodo(this.todoId, this.state.textValue);
+          // hide the input text field.
+          this.setState({
+            isEdit: !this.state.isEdit
+          })
+        }
+        else{
+          alert("The field is empty!");
+        }
+
     }
     // if we press escape key.
     else if(event.keyCode == 27){
