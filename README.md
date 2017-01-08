@@ -1,5 +1,5 @@
 # Todo Application using React.js and Flux
-See on the fly in here - [Awesome Todo App] (https://denniscual.github.io/todo-react/#/)
+`See it on the fly!` - [Awesome Todo App] (https://denniscual.github.io/todo-react/#/)
 
 ![The Design](/img.png)
 
