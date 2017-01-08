@@ -1,5 +1,6 @@
 # Todo Application using React.js and Flux
 See on the fly in here - [Awesome Todo App] (https://denniscual.github.io/todo-react/#/)
+
 ![The Design](/img.png)
 
 > React is a UI library developed at Facebook to facilitate the creation of interactive, stateful & reusable UI components. 
