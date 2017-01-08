@@ -18,3 +18,9 @@ render(
     </Route>
   </Router>
 , app);
+
+const Person = {
+  firstname: "kobe",
+  lastname: "bryant"
+}
+// Person.firstname = 12;
