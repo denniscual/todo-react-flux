@@ -1,7 +1,7 @@
 # Todo Application using React.js and Flux
 `See it on the fly!` - [Awesome Todo App] (https://denniscual.github.io/todo-react/#/)
 
-![<img src="./img.png" />] (https://denniscual.github.io/todo-react/#/)
+[<img src="./img.png" />] (https://denniscual.github.io/todo-react/#/)
 
 > React is a UI library developed at Facebook to facilitate the creation of interactive, stateful & reusable UI components. 
  It is used at Facebook in production, and Instagram.com is written entirely in React.
